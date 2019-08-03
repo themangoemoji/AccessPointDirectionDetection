@@ -30,4 +30,4 @@ We apply the cardiod function to simulate SS changing based on where we have tur
   4. Automated Tuning of the Model. I chose hardcoded values by hand via experimentation.
   
 ## Usage
-Run ap.m with Matlab or Octave
+Run `ap.m` with Matlab or Octave
