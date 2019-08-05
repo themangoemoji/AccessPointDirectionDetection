@@ -28,9 +28,10 @@
 % Initialization
 clear ; close all; clc
 
+% This can be changed, but must be >= 2
 access_points = 4;
 
-% Simulate turning in a circle
+% Simulate turning in a circle at a constant rate
 turn_speed = pi/((rand(1)+.5) * 16)
 start = 0;
 position2 = start + turn_speed;
@@ -41,20 +42,20 @@ position6 = position5 + turn_speed;
 positions = [start position2 position3 ];
 
 X = []; % Collects all signal strengths from data generation
-Y = []; % Collects all true directions from data generation
+Y = []; % Collects all true directions from data generation (the training answer)
 
-% Training Data Generation Scenario: Access Points in Circle Around Sensor
+% Training Data Generation Scenario: "Access Points in Circle Around Sensor"
 % Add training data for AP's in circle around origin (sensor)
 iterations = 100;
 for iteration = 1:iterations,
-    % adds APs in every direction around the origin/sensor that are distances in the range of [-2, 2] away
-    x_dir = (rand(1, access_points) - 0.5) .* 8;
+    % adds APs in every direction (in an x-y coordinate plane) around the origin/sensor
+    x_dir = (rand(1, access_points) - 0.5) .* 8; % "Distance" in the range of [-2 to 2]
     y_dir = (rand(1, access_points) - 0.5) .* 8;
     [amplitudes, angles] = get_amplitude(x_dir, y_dir, positions);
     [X, Y, access_points,] = addData(X, Y, amplitudes, access_points, angles);
 end
 
-% Training Data Generation Scenario: Access Points in One General Direction
+% Training Data Generation Scenario: "Access Points in One General Direction"
 % Add training data for AP's in narrow field of vision
 for iteration = 1:iterations,
     % adds APs in every direction around the origin/sensor that are distances in the range of [-2, 2] away
@@ -64,16 +65,12 @@ for iteration = 1:iterations,
     [X, Y, access_points,] = addData(X, Y, amplitudes, access_points, angles);
 end
 
-save signals.dat X
-save direction.dat Y
-
-% Some gradient descent settings
 theta = zeros(access_points * length(positions) + 1, 1); % Theta for all AP at all positions + bias unit
 
+% Some gradient descent algorithm settings i.e. the rate at which we will converge upon our accepted model
 iterations = 1000;
 alpha = 0.0003;
 
-fprintf('\nTesting the cost function ...\n')
 % compute and display initial cost
 J = computeCostMulti(X, Y, theta);
 [theta, jhist] = gradientDescentMulti(X, Y, theta, alpha, iterations);
