@@ -16,8 +16,9 @@ We apply the cardiod function to simulate SS changing based on where we have tur
 2. Choosing random distances between the sensor and AP
 
 ## Performance
-  1. Scenario: Access Points in Circle Around Sensor **Median error: ~29 degrees**
-  2. Scenario: Access Points in One General Direction ** Median error: ~4 degrees** 
+  1. Scenario: Access Points in One General Direction **Median error: ~4 degrees** 
+  2. Scenario: Access Points in Circle Around Sensor **Median error: ~29 degrees**
+
 
 ## Assumptions
   1. Model requires at least 2 access points
