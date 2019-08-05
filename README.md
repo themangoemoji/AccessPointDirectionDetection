@@ -22,6 +22,7 @@ We apply the cardiod function to simulate SS changing based on where we have tur
 
 ## Assumptions
   1. Model requires at least 2 access points
+  2. The cardiod function is a very uniform and predictable function. Interference caused by different orientations of a real device will have different and unexpected properties that may not lend themselves well to modeling.
 
 ## Further exploration:
   1. Extend model to allow for moving sensor in space (toward/away from AP's). This model currently accounts for changing angle of device, not moving in space.
